@@ -27,6 +27,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
   bool _isConnecting = false;
   bool _isDisconnecting = false;
 
+  // StreamSubscription : 状態の変更を監視する
   late StreamSubscription<BluetoothConnectionState>
       _connectionStateSubscription;
   late StreamSubscription<bool> _isConnectingSubscription;
@@ -66,6 +67,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
     });
   }
 
+  // リスナーを解除
   @override
   void dispose() {
     _connectionStateSubscription.cancel();
@@ -118,6 +120,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
       _isDiscoveringServices = true;
     });
     try {
+      // Bluetoothデバイスから利用可能なサービスを非同期に取得し,_servicesリストに保存
       _services = await widget.device.discoverServices();
       Snackbar.show(ABC.c, "Discover Services: Success", success: true);
     } catch (e) {
@@ -206,7 +209,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
             width: 18.0,
             height: 18.0,
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(Colors.grey),
+              // valueColor: AlwaysStoppedAnimation(Colors.grey),
             ),
           ),
           onPressed: null,
@@ -232,13 +235,9 @@ class _DeviceScreenState extends State<DeviceScreen> {
           onPressed: _isConnecting
               ? onCancelPressed
               : (isConnected ? onDisconnectPressed : onConnectPressed),
-          child: Text(
-            _isConnecting ? "CANCEL" : (isConnected ? "DISCONNECT" : "CONNECT"),
-            style: Theme.of(context)
-                .primaryTextTheme
-                .labelLarge
-                ?.copyWith(color: Colors.white),
-          ))
+          child: Text(_isConnecting
+              ? "CANCEL"
+              : (isConnected ? "DISCONNECT" : "CONNECT")))
     ]);
   }
 

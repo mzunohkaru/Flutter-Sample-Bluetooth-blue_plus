@@ -126,8 +126,11 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // Characteristic が読み取り可能な場合
         if (read) buildReadButton(context),
+        // Characteristic が書き込み可能な場合
         if (write) buildWriteButton(context),
+        // Characteristic が通知と指示が可能な場合
         if (notify || indicate) buildSubscribeButton(context),
       ],
     );

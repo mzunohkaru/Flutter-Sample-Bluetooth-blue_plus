@@ -9,7 +9,6 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_blue_plus_sample/view/bluetooth_off_screen.dart';
 import 'package:flutter_blue_plus_sample/view/scan_screen.dart';
 
-
 void main() {
   FlutterBluePlus.setLogLevel(LogLevel.verbose, color: true);
   runApp(const FlutterBlueApp());
@@ -30,7 +29,8 @@ class _FlutterBlueAppState extends State<FlutterBlueApp> {
   @override
   void initState() {
     super.initState();
-    _adapterStateStateSubscription = FlutterBluePlus.adapterState.listen((state) {
+    _adapterStateStateSubscription =
+        FlutterBluePlus.adapterState.listen((state) {
       _adapterState = state;
       setState(() {});
     });
@@ -49,7 +49,13 @@ class _FlutterBlueAppState extends State<FlutterBlueApp> {
         : BluetoothOffScreen(adapterState: _adapterState);
 
     return MaterialApp(
-      color: Colors.lightBlue,
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            elevation: 0,
+          ),
+          useMaterial3: true),
       home: screen,
       navigatorObservers: [BluetoothAdapterStateObserver()],
     );
@@ -64,9 +70,12 @@ class BluetoothAdapterStateObserver extends NavigatorObserver {
     super.didPush(route, previousRoute);
     if (route.settings.name == '/DeviceScreen') {
       // Start listening to Bluetooth state changes when a new route is pushed
-      _adapterStateSubscription ??= FlutterBluePlus.adapterState.listen((state) {
+      // 新しいルートがプッシュされると、Bluetoothの状態変化をリッスンし始める
+      _adapterStateSubscription ??=
+          FlutterBluePlus.adapterState.listen((state) {
         if (state != BluetoothAdapterState.on) {
           // Pop the current route if Bluetooth is off
+          // Bluetoothがオフの場合、現在のルートをポップする
           navigator?.pop();
         }
       });
@@ -77,6 +86,7 @@ class BluetoothAdapterStateObserver extends NavigatorObserver {
   void didPop(Route route, Route? previousRoute) {
     super.didPop(route, previousRoute);
     // Cancel the subscription when the route is popped
+    // ルートが他のデバイスからの通信を受信、送信する際に、その通信内容やパラメーターなどを確認や変更したりする時、サブスクリプションをキャンセルする
     _adapterStateSubscription?.cancel();
     _adapterStateSubscription = null;
   }

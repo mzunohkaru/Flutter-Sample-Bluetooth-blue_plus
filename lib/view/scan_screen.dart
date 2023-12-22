@@ -53,9 +53,11 @@ class _ScanScreenState extends State<ScanScreen> {
     super.dispose();
   }
 
+  // Bluetoothデバイスのスキャンを開始
   Future onScanPressed() async {
     try {
       // android is slow when asking for all advertisments,
+      // アンドロイドはすべての接続を要求すると遅い
       // so instead we only ask for 1/8 of them
       int divisor = Platform.isAndroid ? 8 : 1;
       await FlutterBluePlus.startScan(
@@ -74,6 +76,7 @@ class _ScanScreenState extends State<ScanScreen> {
     }
   }
 
+  // 選択されたBluetoothデバイスに接続します
   void onConnectPressed(BluetoothDevice device) {
     device.connectAndUpdateStream().catchError((e) {
       Snackbar.show(ABC.c, prettyException("Connect Error:", e), success: false);
@@ -103,9 +106,11 @@ class _ScanScreenState extends State<ScanScreen> {
     }
   }
 
+  // 接続済みデバイスの表示
   List<Widget> _buildConnectedDeviceTiles(BuildContext context) {
     return _connectedDevices
         .map(
+          // すでに接続されているBluetoothデバイスのリストを表示します
           (d) => ConnectedDeviceTile(
             device: d,
             onOpen: () => Navigator.of(context).push(
@@ -120,6 +125,7 @@ class _ScanScreenState extends State<ScanScreen> {
         .toList();
   }
 
+  // スキャン結果の表示
   List<Widget> _buildScanResultTiles(BuildContext context) {
     return _scanResults
         .map(
