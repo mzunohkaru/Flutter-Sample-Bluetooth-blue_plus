@@ -1,17 +1,38 @@
 # Bluetooth 用語集
 
 
+## BLEとBluetooth Classicの違い
+・BLEはBluetooth Classicよりも省電力な通信方式
+・BLEはBluetooth Classicよりもデータ転送速度が低い
+・BLEはBluetooth Classicよりもチャンネル数が少ない
+・BLEはBluetooth Classicよりもパケットが短い
+
+## プロトコル
+「コントローラ」「ホスト」「アプリケーション」の３層で構成されている。
+・コントローラはホストコントローラインターフェース（HCI）によってホストと命令・イベントをやり取りする
+・ホストは通信の多重化やBluetoothの標準的な機能を実装する（Security Manager / SM）（L2CAP）（Attribute Protocol / ATT）（Generic Attribute Profile / GATT）（Generic Access Profile / GAP）など
+・アプリケーションは各種APIを用いてホストと命令・イベントのやり取りを行う
+
 ## ルート
 Bluetoothネットワークの中心デバイスで、他のデバイスからの通信を受信、送信する
 
 ## ポップ
 Bluetooth機器同士の通信を管理する機能
 
-## BLEとBluetooth Classicの違い
-・BLEはBluetooth Classicよりも省電力な通信方式
-・BLEはBluetooth Classicよりもデータ転送速度が低い
-・BLEはBluetooth Classicよりもチャンネル数が少ない
-・BLEはBluetooth Classicよりもパケットが短い
+## セントラル
+BLE通信を開始するデバイス
+
+## ペリフェラル
+BLE通信を受けるデバイス
+
+## アドバタイズ
+ペリフェラルがセントラルに対して接続を待ち受ける状態
+
+## サービスディスカバリー
+セントラルがペリフェラルが提供するサービスを調べる処理
+
+## 要求
+セントラルからペリフェラルに対してデータを要求する方法
 
 ## RSSI
 Bluetoothデバイスが受信した信号の相対的な品質レベル（信号の強度）の値。通常、負のデシベル単位（dBm）で表示され、値が0に近いほど信号が強いことを示す
@@ -28,6 +49,11 @@ Bluetoothデバイスが提供する具体的なデータを指します。こ�
 ・notify : 通知（特性の値が変更されたときにデバイスにその変更を自動的に送信する機能を指します）
 ・indicate : 指示（通知と似ている。違う点は、変更を受け取ったことを確認する応答を返す必要があるため、送信側が値を受け取られたことを確認できる）
 
+## プロファイル
+特定デバイスに関する仕様書で、特にGAPはBLEにおける最上位の定義
 
+## チャンネル
+2.4GHz帯の電波を利用
 
-
+ソース
+https://houwa-js.co.jp/2018/06/20180629/

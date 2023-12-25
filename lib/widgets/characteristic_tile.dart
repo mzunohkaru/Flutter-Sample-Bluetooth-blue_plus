@@ -102,18 +102,18 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
     // Bluetoothの特性（Characteristic）のUUID（Universally Unique Identifier）を取得し、それを大文字の16進数形式の文字列に変換しています
     // '0x${...}'という形式で結果を文字列に組み込みます。ここで0xは16進数を表すプレフィックスです
     String uuid = '0x${widget.characteristic.uuid.str.toUpperCase()}';
-    return Text(uuid, style: TextStyle(fontSize: 13));
+    return Text(uuid, style: const TextStyle(fontSize: 13));
   }
 
   Widget buildValue(BuildContext context) {
     // リストの内容を文字列に変換
     String data = _value.toString();
-    return Text(data, style: TextStyle(fontSize: 13, color: Colors.grey));
+    return Text(data, style: const TextStyle(fontSize: 13, color: Colors.grey));
   }
 
   Widget buildReadButton(BuildContext context) {
     return TextButton(
-        child: Text("Read"),
+        child: const Text("Read"),
         onPressed: () async {
           await onReadPressed();
           setState(() {});
