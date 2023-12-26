@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:math';
+// import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -43,14 +43,15 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
 
   // 書き込むデータは4バイトのランダムなデータ
   List<int> _getRandomBytes() {
-    final math = Random();
+    // final math = Random();
     // 0から255までのランダムな整数を4つ生成し、リストとして返す
-    return [
-      math.nextInt(255),
-      math.nextInt(255),
-      math.nextInt(255),
-      math.nextInt(255)
-    ];
+    // return [
+    //   math.nextInt(255),
+    //   math.nextInt(255),
+    //   math.nextInt(255),
+    //   math.nextInt(255)
+    // ];
+    return [77, 77, 77, 77];
   }
 
   Future onReadPressed() async {
@@ -98,6 +99,17 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
     }
   }
 
+  Future<void> pairAndBondDevice() async {
+    try {
+      // Bluetoothデバイスとのボンディング（ペアリングを永続的にすること）を作成
+      await widget.characteristic.device.createBond();
+      Snackbar.show(ABC.c, "デバイスとボンディングしました", success: true);
+    } catch (e) {
+      Snackbar.show(ABC.c, prettyException("ボンディングに失敗しました:", e),
+          success: false);
+    }
+  }
+
   Widget buildUuid(BuildContext context) {
     // Bluetoothの特性（Characteristic）のUUID（Universally Unique Identifier）を取得し、それを大文字の16進数形式の文字列に変換しています
     // '0x${...}'という形式で結果を文字列に組み込みます。ここで0xは16進数を表すプレフィックスです
@@ -140,6 +152,26 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
         });
   }
 
+  Widget buildPairAndBondButton(BuildContext context) {
+    return StreamBuilder<BluetoothBondState>(
+      stream: widget.characteristic.device.bondState,
+      builder:
+          (BuildContext context, AsyncSnapshot<BluetoothBondState> snapshot) {
+        if (snapshot.hasData) {
+          bool bondable = snapshot.data == BluetoothBondState.none;
+          return TextButton(
+            onPressed: pairAndBondDevice,
+            child: bondable
+                ? const Text('Pair & Bonding')
+                : const Text('Bonding successfully'),
+          );
+        } else {
+          return const CircularProgressIndicator(); // データがまだない場合はローディングインジケータを表示
+        }
+      },
+    );
+  }
+
   Widget buildButtonRow(BuildContext context) {
     bool read = widget.characteristic.properties.read;
     bool write = widget.characteristic.properties.write;
@@ -154,6 +186,8 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
         if (write) buildWriteButton(context),
         // Characteristic が通知と指示が可能な場合
         if (notify || indicate) buildSubscribeButton(context),
+        // ペアリング & ボンディングボタンを表示
+        buildPairAndBondButton(context),
       ],
     );
   }
