@@ -163,7 +163,7 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
             onPressed: pairAndBondDevice,
             child: bondable
                 ? const Text('Pair & Bonding')
-                : const Text('Bonding successfully'),
+                : const Text('Bonding success'),
           );
         } else {
           return const CircularProgressIndicator(); // データがまだない場合はローディングインジケータを表示

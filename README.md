@@ -64,3 +64,24 @@ Bluetoothデバイスが提供する具体的なデータを指します。こ�
 
 ソース
 https://houwa-js.co.jp/2018/06/20180629/
+
+
+# 実行結果
+
+## MTU
+<img width="954" alt="スクリーンショット 2023-12-26 11 56 18" src="https://github.com/mzunohkaru/Flutter-Sample-Bluetooth-blue_plus/assets/99012157/562317fa-1160-4d4d-b494-0391afe73c09">
+
+## get service
+<img width="954" alt="スクリーンショット 2023-12-26 11 56 08" src="https://github.com/mzunohkaru/Flutter-Sample-Bluetooth-blue_plus/assets/99012157/9d617552-410b-458b-b0bc-e9faafea321b">
+
+## read
+<img width="954" alt="スクリーンショット 2023-12-26 11 56 42" src="https://github.com/mzunohkaru/Flutter-Sample-Bluetooth-blue_plus/assets/99012157/23bbfbfa-d4b2-4795-a947-5bdf10105040">
+
+## write
+<img width="954" alt="スクリーンショット 2023-12-26 11 56 55" src="https://github.com/mzunohkaru/Flutter-Sample-Bluetooth-blue_plus/assets/99012157/044fe4d5-f7b0-43c4-b463-cc386266a685">
+
+## notify
+<img width="954" alt="スクリーンショット 2023-12-26 11 57 02" src="https://github.com/mzunohkaru/Flutter-Sample-Bluetooth-blue_plus/assets/99012157/d3ff0187-5ccb-42a3-84e6-bf25192edd55">
+
+## pair & bond
+<img width="954" alt="スクリーンショット 2023-12-26 11 57 14" src="https://github.com/mzunohkaru/Flutter-Sample-Bluetooth-blue_plus/assets/99012157/8daa5587-52aa-45d8-a5fa-8df0344a67f0">
